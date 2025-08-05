@@ -4,126 +4,743 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>尹中泽 | 英语笔译专业</title>
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --text-color: #34495e;
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 配置Tailwind - 调整颜色提高可读性 + 字体优化 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#333333',      // 深灰色作为主色
+                        secondary: '#666666',    // 中灰色作为辅助色
+                        dark: '#1A1A1A',         // 近黑色背景
+                        darker: '#111111',       // 更深的黑色
+                        light: '#F0F0F0',        // 调整为更亮的浅灰色文本，提高可读性
+                        'light-accent': '#AAAAAA' // 调整为稍深的灰色，解决看不清的问题
+                    },
+                    fontFamily: {
+                        song: ['SimSun', 'STSong', 'serif'], // 宋体类字体
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Segoe UI', system-ui;
-            line-height: 1.6;
-            color: var(--text-color);
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-gradient {
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .bg-grid {
+                background-size: 40px 40px;
+                background-image: 
+                    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            }
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
+            }
+            .skill-bar {
+                height: 8px;
+                border-radius: 4px;
+                background: rgba(255, 255, 255, 0.1);
+                overflow: hidden;
+            }
+            .skill-progress {
+                height: 100%;
+                border-radius: 4px;
+                background: linear-gradient(90deg, #333333, #666666); /* 黑白渐变 */
+                transition: width 1s ease-in-out;
+            }
+            .award-icon {
+                filter: drop-shadow(0 0 3px currentColor);
+            }
+            .activity-item, .competition-item, .academic-item {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .activity-item:hover, .competition-item:hover, .academic-item:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            }
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
-        header {
-            text-align: center;
-            padding: 4rem 0;
-            background: var(--primary-color);
-            color: white;
+
+        html {
+            scroll-behavior: smooth;
         }
-        .avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-bottom: 1rem;
-            border: 3px solid white;
+
+        .section-fade {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-        .social-links {
-            margin: 1rem 0;
+
+        .section-fade.active {
+            opacity: 1;
+            transform: translateY(0);
         }
-        .social-links a {
-            color: white;
-            margin: 0 1rem;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s;
+
+        .award-item {
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
-        .social-links a:hover { opacity: 1; }
-        .section {
-            padding: 3rem 0;
-            border-bottom: 1px solid #eee;
+        
+        .award-item:hover {
+            transform: translateX(5px);
+            background-color: rgba(255, 255, 255, 0.05);
         }
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        .project-card {
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        footer {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        @media (max-width: 768px) {
-            .container { padding: 1rem; }
-            header { padding: 2rem 0; }
+
+        /* 字体样式优化 */
+        .title-font {
+            font-family: 'SimSun', 'STSong', 'serif';
+            letter-spacing: 0.05em;
         }
     </style>
 </head>
-<body>
-    <header>
-        <div class="container">
-            <!-- 替换为你的头像路径 -->
-            <img src="尹中泽.jpg" alt="尹中泽" class="avatar">
-            <h1>尹中泽</h1>
-            <p>西北工业大学英语笔译专业硕士研究生 | 研究领域：工程科技翻译、机器翻译、译后编辑</p>
-            <div class="social-links">
-                <a href="mailto:your.duanmuyili@foxmail.com" target="_blank">📧 邮件</a>
-                <a href="https://linkedin.com/in/yourprofile" target="_blank">💼 LinkedIn</a>
-                <a href="https://github.com/duanmuyili" target="_blank">👨💻 GitHub</a>
+<body class="bg-dark text-light font-sans">
+    <!-- 背景网格 -->
+    <div class="fixed inset-0 bg-grid opacity-30 z-0"></div>
+    
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 bg-darker/80 backdrop-blur-md z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-primary title-font">尹中泽</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="hover:text-primary transition-colors">关于</a>
+                <a href="#education" class="hover:text-primary transition-colors">教育背景</a>
+                <a href="#skills" class="hover:text-primary transition-colors">专业技能</a>
+                <a href="#awards" class="hover:text-primary transition-colors">荣誉奖项</a>
+                <a href="#activities" class="hover:text-primary transition-colors">实践活动</a>
+                <a href="#competitions" class="hover:text-primary transition-colors">科研竞赛</a>
+                <a href="#academic" class="hover:text-primary transition-colors">学术履历</a>
             </div>
+            <button class="md:hidden text-2xl" id="menuToggle">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobileMenu" class="hidden md:hidden bg-darker/95 backdrop-blur-md">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="#about" class="hover:text-primary transition-colors py-2">关于</a>
+                <a href="#education" class="hover:text-primary transition-colors py-2">教育背景</a>
+                <a href="#skills" class="hover:text-primary transition-colors py-2">专业技能</a>
+                <a href="#awards" class="hover:text-primary transition-colors py-2">荣誉奖项</a>
+                <a href="#activities" class="hover:text-primary transition-colors py-2">实践活动</a>
+                <a href="#competitions" class="hover:text-primary transition-colors py-2">科研竞赛</a>
+                <a href="#academic" class="hover:text-primary transition-colors py-2">学术履历</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 头部 -->
+    <header id="about" class="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-darker to-dark opacity-80 z-0"></div>
+        <!-- 装饰性圆形 - 黑白风格 -->
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/20 rounded-full filter blur-3xl"></div>
+        <div class="absolute bottom-1/4 left-1/4 w-96 h-96 bg-secondary/20 rounded-full filter blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 z-10 text-center">
+            <div class="relative inline-block mb-6 animate-float">
+                <img src="尹中泽.jpg" alt="尹中泽" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-primary/50">
+                <div class="absolute -bottom-2 -right-2 w-16 h-16 bg-primary rounded-full flex items-center justify-center">
+                    <i class="fa fa-graduation-cap text-2xl"></i>
+                </div>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 title-font">
+                <span class="bg-gradient-to-r from-primary to-secondary text-gradient">尹中泽</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-light-accent max-w-2xl mx-auto mb-8">
+                西北工业大学英语笔译专业硕士研究生 | 研究领域：工程科技翻译、机器翻译、译后编辑
+            </p>
+            <div class="flex justify-center space-x-6 mb-12">
+                <a href="mailto:duanmuyili@foxmail.com" target="_blank" class="w-12 h-12 rounded-full bg-darker flex items-center justify-center hover:bg-primary/20 transition-all border border-primary/30">
+                    <i class="fa fa-envelope"></i>
+                </a>
+                <a href="https://www.researchgate.net/profile/Lloyd-Yin?ev=hdr_xprf" target="_blank" class="w-12 h-12 rounded-full bg-darker flex items-center justify-center hover:bg-primary/20 transition-all border border-primary/30">
+                    <i class="fa fa-researchgate"></i>
+                </a>
+                <a href="https://github.com/duanmuyili" target="_blank" class="w-12 h-12 rounded-full bg-darker flex items-center justify-center hover:bg-primary/20 transition-all border border-primary/30">
+                    <i class="fa fa-github"></i>
+                </a>
+            </div>
+            <a href="#education" class="inline-block animate-bounce">
+                <i class="fa fa-chevron-down text-primary/70"></i>
+            </a>
         </div>
     </header>
 
-    <main class="container">
-        <section class="section">
-            <h2>📖 教育背景</h2>
-            <p>合肥工业大学外国语学院 英语 本科（2020-2024）<br>
-                主修：计算机辅助翻译技术、同声传译</p>
-            <p>西北工业大学外国语学院 英语笔译 硕士（2024-2027）<br>
-                主修：计算机辅助翻译技术、同声传译</p>
-        </section>
-
-        <section class="section">
-            <h2>🔧 专业技能</h2>
-            <ul style="margin-top:1rem; padding-left:2rem;">
-                <li>CAT工具（Trados, MemoQ）</li>
-                <li>非文学翻译</li>
-                <li>大语言模型人工智能翻译</li>
-            </ul>
-        </section>
-
-        <section class="section">
-            <h2>🚀 项目经验</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <h3>外商投资政策翻译</h3>
-                    <p>2025.07至今 西安市投资合作局<br>
-                        完成15万字政策文档中英互译</p>
+    <main class="container mx-auto px-4 py-16 relative z-10">
+        <!-- 教育背景 -->
+        <section id="education" class="section-fade mb-24">
+            <div class="flex items-center mb-10">
+                <div class="w-12 h-1 bg-primary mr-4"></div>
+                <h2 class="text-3xl md:text-4xl font-bold title-font">教育背景</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- 本科 -->
+                <div class="bg-darker/50 backdrop-blur-sm p-6 rounded-xl border border-primary/10 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mr-3">
+                            <i class="fa fa-university text-primary"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold title-font">合肥工业大学</h3>
+                    </div>
+                    <p class="text-primary mb-2">英语 本科 | 2020-2024</p>
+                    <p class="text-light-accent">主修：英汉笔译、汉英笔译、英国文学、美国文学</p>
+                    
+                    <div class="mt-4 pt-4 border-t border-light/10">
+                        <div class="flex items-center text-sm text-light-accent">
+                            <i class="fa fa-graduation-cap mr-2"></i>
+                            <span>学士学位</span>
+                        </div>
+                    </div>
                 </div>
-                <!-- 添加更多项目 -->
+                
+                <!-- 硕士 -->
+                <div class="bg-darker/50 backdrop-blur-sm p-6 rounded-xl border border-primary/10 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-secondary/20 flex items-center justify-center mr-3">
+                            <i class="fa fa-university text-secondary"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold title-font">西北工业大学</h3>
+                    </div>
+                    <p class="text-secondary mb-2">英语笔译 硕士 | 2024-2027</p>
+                    <p class="text-light-accent">主修：计算机辅助翻译技术、同声传译</p>
+                    
+                    <div class="mt-4 pt-4 border-t border-light/10">
+                        <div class="flex items-center text-sm text-light-accent">
+                            <i class="fa fa-graduation-cap mr-2"></i>
+                            <span>硕士学位（在读）</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 专业技能 -->
+        <section id="skills" class="section-fade mb-24">
+            <div class="flex items-center mb-10">
+                <div class="w-12 h-1 bg-secondary mr-4"></div>
+                <h2 class="text-3xl md:text-4xl font-bold title-font">专业技能</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-6 flex items-center title-font">
+                        <i class="fa fa-cogs text-primary mr-2"></i>
+                        翻译技术
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>CAT工具（Trados, MemoQ）</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="90%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>机器翻译系统</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="85%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>译后编辑技术</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-6 flex items-center title-font">
+                        <i class="fa fa-language text-secondary mr-2"></i>
+                        翻译能力
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>非文学翻译</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="95%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>工程科技翻译</span>
+                                <span>88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="88%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>大语言模型辅助翻译</span>
+                                <span>92%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 技术标签 -->
+            <div class="mt-12">
+                <h3 class="text-xl font-semibold mb-6 flex items-center title-font">
+                    <i class="fa fa-tags text-primary mr-2"></i>
+                    相关技术与工具
+                </h3>
+                
+                <div class="flex flex-wrap gap-3">
+                    <span class="px-4 py-2 bg-darker/70 rounded-full text-sm border border-primary/20">Trados Studio</span>
+                    <span class="px-4 py-2 bg-darker/70 rounded-full text-sm border border-primary/20">MemoQ</span>
+                    <span class="px-4 py-2 bg-darker/70 rounded-full text-sm border border-primary/20">DeepL</span>
+                    <span class="px-4 py-2 bg-darker/70 rounded-full text-sm border border-primary/20">Google Translate</span>
+                    <span class="px-4 py-2 bg-darker/70 rounded-full text-sm border border-primary/20">术语库管理</span>
+                    <span class="px-4 py-2 bg-darker/70 rounded-full text-sm border border-primary/20">翻译记忆库</span>
+                    <span class="px-4 py-2 bg-darker/70 rounded-full text-sm border border-primary/20">SDL MultiTerm</span>
+                    <span class="px-4 py-2 bg-darker/70 rounded-full text-sm border border-primary/20">Python（NLP）</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 荣誉奖项 -->
+        <section id="awards" class="section-fade mb-24">
+            <div class="flex items-center mb-10">
+                <div class="w-12 h-1 bg-primary mr-4"></div>
+                <h2 class="text-3xl md:text-4xl font-bold title-font">荣誉奖项</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 国家级奖项 -->
+                <div class="bg-darker/50 backdrop-blur-sm rounded-xl border border-primary/10 p-6 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4">
+                            <i class="fa fa-trophy text-2xl text-primary award-icon"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold title-font">国家级</h3>
+                    </div>
+                    
+                    <ul class="space-y-4 pl-2">
+                        <li class="award-item p-2 rounded-lg">
+                            <span class="text-light/90">2020-2021 学年国家奖学金</span>
+                        </li>
+                        <li class="award-item p-2 rounded-lg">
+                            <span class="text-light/90">第二届全国高校大学生外语水平能力大赛一等奖</span>
+                        </li>
+                        <li class="award-item p-2 rounded-lg">
+                            <span class="text-light/90">2021 年批改网百万同题英语写作大赛二等奖</span>
+                        </li>
+                        <li class="award-item p-2 rounded-lg">
+                            <span class="text-light/90">第八届全国机器翻译译后编辑大赛英语赛道三等奖</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 省级奖项 -->
+                <div class="bg-darker/50 backdrop-blur-sm rounded-xl border border-primary/10 p-6 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                            <i class="fa fa-medal text-2xl text-secondary award-icon"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold title-font">省级</h3>
+                    </div>
+                    
+                    <ul class="space-y-4 pl-2">
+                        <li class="award-item p-2 rounded-lg">
+                            <span class="text-light/90">2020 年全国大学生英语翻译大赛省级三等奖</span>
+                        </li>
+                        <li class="award-item p-2 rounded-lg">
+                            <span class="text-light/90">2021 年全国大学生英语作文大赛省级三等奖</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 校级奖项 -->
+                <div class="bg-darker/50 backdrop-blur-sm rounded-xl border border-primary/10 p-6 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4">
+                            <i class="fa fa-award text-2xl text-primary award-icon"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold title-font">校级（本科期间）</h3>
+                    </div>
+                    
+                    <ul class="space-y-4 pl-2">
+                        <li class="award-item p-2 rounded-lg">
+                            <span class="text-light/90">2020-2021 学年校一等奖学金、校文艺活动奖学金</span>
+                        </li>
+                        <li class="award-item p-2 rounded-lg">
+                            <span class="text-light/90">优秀学生干部、优秀三好学生、三好学生、优秀共青团员</span>
+                        </li>
+                        <li class="award-item p-2 rounded-lg">
+                            <span class="text-light/90">2021-2022 学年校二等奖学金、校社会活动奖学金</span>
+                        </li>
+                        <li class="award-item p-2 rounded-lg">
+                            <span class="text-light/90">优秀学生干部、优秀三好学生、三好学生、优秀共青团干部</span>
+                        </li>
+                        <li class="award-item p-2 rounded-lg">
+                            <span class="text-light/90">2021 年"外研社·国才杯"全国大学生英语演讲大赛校赛二等奖</span>
+                        </li>
+                        <li class="award-item p-2 rounded-lg">
+                            <span class="text-light/90">2022年"外研社·国才杯"英语辩论赛校选赛亚军</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 实践活动 -->
+        <section id="activities" class="section-fade mb-24">
+            <div class="flex items-center mb-10">
+                <div class="w-12 h-1 bg-secondary mr-4"></div>
+                <h2 class="text-3xl md:text-4xl font-bold title-font">实践活动</h2>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- 志愿服务 -->
+                <div class="bg-darker/50 backdrop-blur-sm rounded-xl border border-primary/10 p-6 activity-item">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mt-1 mr-4 flex-shrink-0">
+                            <i class="fa fa-heart-o text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 title-font">志愿服务活动</h3>
+                            <p class="text-light-accent text-sm mb-3">2020年10月-2024年6月</p>
+                            <p class="text-light/80">
+                                积极参加志愿服务活动，志愿时长累计共138.5小时。曾参加合肥工业大学外国语学院迎新工作、四点半课堂志愿服务、中印尼交流会场地布置及迎宾志愿活动、革命烈士事迹翻译及录音志愿活动，以及其他志愿组织的各类活动。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 三下乡实践 -->
+                <div class="bg-darker/50 backdrop-blur-sm rounded-xl border border-primary/10 p-6 activity-item">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-lg bg-secondary/20 flex items-center justify-center mt-1 mr-4 flex-shrink-0">
+                            <i class="fa fa-search text-secondary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 title-font">暑期"三下乡"社会实践</h3>
+                            <p class="text-light-accent text-sm mb-3">2021年7-9月</p>
+                            <p class="text-light/80">
+                                参与合肥工业大学2021年暑期"三下乡"社会实践，参加国家级立项团队——"寻迹工大，工业报国"爱校荣校考察团，赴合肥、淮南、蚌埠等地开展"爱校荣校"主题考察，形成调研报告《关于合肥工业大学爱校荣校教育推进策略的分析》。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 学生会工作 -->
+                <div class="bg-darker/50 backdrop-blur-sm rounded-xl border border-primary/10 p-6 activity-item">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mt-1 mr-4 flex-shrink-0">
+                            <i class="fa fa-users text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 title-font">学生会工作</h3>
+                            <p class="text-light-accent text-sm mb-3">2022年4月-2023年4月</p>
+                            <p class="text-light/80">
+                                担任合肥工业大学外国语学院学生会主席团成员，策划校院级活动多项，推进校院班三级团学组织联动工作，忠于职责，积极帮助老师、同学们解决问题，受到一致认可。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 实习经历 -->
+                <div class="bg-darker/50 backdrop-blur-sm rounded-xl border border-primary/10 p-6 activity-item">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-lg bg-secondary/20 flex items-center justify-center mt-1 mr-4 flex-shrink-0">
+                            <i class="fa fa-briefcase text-secondary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 title-font">企业实习</h3>
+                            <p class="text-light-accent text-sm mb-3">2023年7月-2023年9月</p>
+                            <p class="text-light/80">
+                                在科大讯飞股份有限公司实习两个月，担任资源语音部能力英文组资源工程师助理一职，从事英语语音资源的加工处理及验证、英语教学资源的制作处理等工作。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 科研竞赛 -->
+        <section id="competitions" class="section-fade mb-24">
+            <div class="flex items-center mb-10">
+                <div class="w-12 h-1 bg-primary mr-4"></div>
+                <h2 class="text-3xl md:text-4xl font-bold title-font">科研竞赛</h2>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- 竞赛1 -->
+                <div class="bg-darker/50 backdrop-blur-sm rounded-xl border border-primary/10 p-6 competition-item">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mt-1 mr-4 flex-shrink-0">
+                            <i class="fa fa-trophy text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 title-font">第七届中国国际互联网+大学生创新创业大赛（创意组校级铜奖）</h3>
+                            <p class="text-light-accent text-sm mb-3">2021年6月 | 团队负责人</p>
+                            
+                            <div class="space-y-2 mt-4">
+                                <div>
+                                    <span class="font-medium text-light">项目名称：</span>
+                                    <span class="text-light/80">"拾忆"APP——非遗信息共享与文创产品交易平台</span>
+                                </div>
+                                <div>
+                                    <span class="font-medium text-light">项目内容：</span>
+                                    <span class="text-light/80">通过构建一个融合销售、教育和宣传功能于一体的平台，助力非物质文化遗产的传播与发展</span>
+                                </div>
+                                <div>
+                                    <span class="font-medium text-light">承担工作：</span>
+                                    <span class="text-light/80">查阅资料，确定选题，统筹项目计划书撰写工作，同时承担设计APP的框架、界面与应用功能</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 竞赛2 -->
+                <div class="bg-darker/50 backdrop-blur-sm rounded-xl border border-primary/10 p-6 competition-item">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-lg bg-secondary/20 flex items-center justify-center mt-1 mr-4 flex-shrink-0">
+                            <i class="fa fa-flask text-secondary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 title-font">2022年大学生创新创业训练计划（校级结项）</h3>
+                            <p class="text-light-accent text-sm mb-3">2022年4月 | 组内排名第二</p>
+                            
+                            <div class="space-y-2 mt-4">
+                                <div>
+                                    <span class="font-medium text-light">项目名称：</span>
+                                    <span class="text-light/80">"双减"政策背景下合肥地区英语专业学生就业问题及对策分析</span>
+                                </div>
+                                <div>
+                                    <span class="font-medium text-light">项目内容：</span>
+                                    <span class="text-light/80">以"双减"政策的施行为背景，考察各大高校英语专业毕业生的就业去向，并对合肥市教育机构和企业现阶段的营业情况和人员流动进行实地考察，为在校英专生的就业提供指导</span>
+                                </div>
+                                <div>
+                                    <span class="font-medium text-light">承担工作：</span>
+                                    <span class="text-light/80">查阅大量数据，设计调查问卷，参与实地调研，形成结题报告</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 竞赛3 -->
+                <div class="bg-darker/50 backdrop-blur-sm rounded-xl border border-primary/10 p-6 competition-item">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mt-1 mr-4 flex-shrink-0">
+                            <i class="fa fa-flag text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 title-font">2022年"挑战杯"大学生创业计划竞赛校内选拔赛二等奖</h3>
+                            <p class="text-light-accent text-sm mb-3">2022年5月 | 组内排名第二</p>
+                            
+                            <div class="space-y-2 mt-4">
+                                <div>
+                                    <span class="font-medium text-light">项目名称：</span>
+                                    <span class="text-light/80">旗服雅社一一传统服饰中外交流平台</span>
+                                </div>
+                                <div>
+                                    <span class="font-medium text-light">项目内容：</span>
+                                    <span class="text-light/80">构建传统服饰文化交流社区，通过中西方特色服饰的对比促进传统服饰文化的推广与创新</span>
+                                </div>
+                                <div>
+                                    <span class="font-medium text-light">承担工作：</span>
+                                    <span class="text-light/80">参与撰写计划书的市场分析、营销策略部分，负责制定平台发展规划、竞争策略</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 竞赛4 -->
+                <div class="bg-darker/50 backdrop-blur-sm rounded-xl border border-primary/10 p-6 competition-item">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-lg bg-secondary/20 flex items-center justify-center mt-1 mr-4 flex-shrink-0">
+                            <i class="fa fa-mobile text-secondary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 title-font">第八届中国国际互联网+大学生创新创业大赛（创意组校级铜奖）</h3>
+                            <p class="text-light-accent text-sm mb-3">2022年6月 | 组内排名第二</p>
+                            
+                            <div class="space-y-2 mt-4">
+                                <div>
+                                    <span class="font-medium text-light">项目名称：</span>
+                                    <span class="text-light/80">"相马才"APP——教育就业咨询平台</span>
+                                </div>
+                                <div>
+                                    <span class="font-medium text-light">项目内容：</span>
+                                    <span class="text-light/80">设计一款就业咨询APP，为求职者提供求职咨询，提高求职面试者的面试能力和求职成功率</span>
+                                </div>
+                                <div>
+                                    <span class="font-medium text-light">承担工作：</span>
+                                    <span class="text-light/80">参与撰写项目计划书的财务分析、风险控制部分，通过模型计算推演运营成本，设计盈利模式</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学术履历 -->
+        <section id="academic" class="section-fade">
+            <div class="flex items-center mb-10">
+                <div class="w-12 h-1 bg-primary mr-4"></div>
+                <h2 class="text-3xl md:text-4xl font-bold title-font">学术履历</h2>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- 学术经历1 -->
+                <div class="bg-darker/50 backdrop-blur-sm rounded-xl border border-primary/10 p-6 academic-item">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mt-1 mr-4 flex-shrink-0">
+                            <i class="fa fa-book text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 title-font">西部高校外语学科建设与发展高层论坛</h3>
+                            <p class="text-light-accent text-sm mb-3">2024年11月8日-11月9日 | 西北工业大学</p>
+                            <p class="text-light/80 mb-4">
+                                参与西部高校外语学科建设与发展高层论坛暨西北工业大学外国语言文学学科办学四十周年研讨会，并宣读论文：
+                            </p>
+                            <div class="pl-4 border-l-2 border-primary/30 italic">
+                                "模因论视阈下《古文观止》中文化要素的英译方法研究"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 学术经历2 -->
+                <div class="bg-darker/50 backdrop-blur-sm rounded-xl border border-primary/10 p-6 academic-item">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-lg bg-secondary/20 flex items-center justify-center mt-1 mr-4 flex-shrink-0">
+                            <i class="fa fa-book text-secondary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 title-font">2025年翻译、修辞与对外话语传播全国学术研讨会</h3>
+                            <p class="text-light-accent text-sm mb-3">2025年4月18日-4月20日</p>
+                            <p class="text-light/80 mb-4">
+                                参加2025年翻译、修辞与对外话语传播全国学术研讨会，并宣读论文：
+                            </p>
+                            <div class="pl-4 border-l-2 border-secondary/30 italic">
+                                "生态翻译观视阈下《围炉夜话》文化负载词的英译策略研究"
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>© 2024 尹中泽 | 更新于2025年8月</p>
+    <footer class="bg-darker py-10 relative z-10">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-6">
+                <a href="#" class="text-2xl font-bold text-primary title-font">尹中泽</a>
+            </div>
+            <p class="text-light-accent mb-6">英语笔译专业 | 工程科技翻译 | 机器翻译研究</p>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="mailto:your.duanmuyili@foxmail.com" target="_blank" class="text-light-accent hover:text-primary transition-colors">
+                    <i class="fa fa-envelope"></i>
+                </a>
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="text-light-accent hover:text-primary transition-colors">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/duanmuyili" target="_blank" class="text-light-accent hover:text-primary transition-colors">
+                    <i class="fa fa-github"></i>
+                </a>
+            </div>
+            <p class="text-light-accent/70 text-sm">© 2024 尹中泽 | 更新于2025年8月</p>
+        </div>
     </footer>
+
+    <script>
+        // 移动端菜单切换
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 点击导航链接关闭移动端菜单
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobileMenu').classList.add('hidden');
+            });
+        });
+        
+        // 滚动时导航栏样式变化
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2', 'shadow-md', 'shadow-primary/10');
+                nav.classList.remove('py-3');
+            } else {
+                nav.classList.add('py-3');
+                nav.classList.remove('py-2', 'shadow-md', 'shadow-primary/10');
+            }
+        });
+        
+        // 滚动显示动画
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // 激活技能条动画
+                    if (entry.target.id === 'skills') {
+                        document.querySelectorAll('.skill-progress').forEach(bar => {
+                            const width = bar.getAttribute('data-width');
+                            setTimeout(() => {
+                                bar.style.width = width;
+                            }, 300);
+                        });
+                    }
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.section-fade').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
-
-
-
